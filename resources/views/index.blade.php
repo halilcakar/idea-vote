@@ -42,20 +42,22 @@
                 </div>
             </div>
 
-            <div class="flex px-2 py-6">
-                <a href="#" class="flex-none">
-                    <img src="https://source.unsplash.com/200x200/?face&crop=face" class="w-14 h-14 rounded-xl" alt="avatar">
-                </a>
-                <div class="mx-4">
+            <div class="flex flex-1 px-2 py-6">
+                <div class="flex-none">
+                    <a href="#">
+                        <img src="https://source.unsplash.com/200x200/?face&crop=face" class="w-14 h-14 rounded-xl" alt="avatar">
+                    </a>
+                </div>
+                <div class="w-full mx-4">
                     <h4 class="text-xl font-semibold">
                         <a href="#" class="hover:underline">Yet another random title can go here!</a>
                     </h4>
                     <div class="text-gray-600 mt-3 line-clamp-3">
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Aspernatur, veniam perspiciatis. Laborum amet, iste nemo incidunt itaque vitae voluptatum doloremque alias fuga quasi facere exercitationem, quis architecto provident minus aut fugit at laboriosam? Corrupti doloribus ullam repellat reprehenderit nisi? Dolor optio rem quidem magni perferendis ducimus quis nisi necessitatibus minima libero? Omnis ipsam id facilis aliquid pariatur. Earum ab officiis asperiores velit ipsa minima eum sequi assumenda aliquam deserunt ex, veniam odio optio porro quae, consequuntur possimus nostrum tenetur illum aliquid ea! Fuga vel voluptatibus excepturi doloribus asperiores? Obcaecati, possimus quidem? Nam reprehenderit enim animi culpa magni neque dignissimos assumenda!
+                        Lorem ipsum dolor sit amet consectetur adipisicing elit.
                     </div>
 
                     <div class="flex items-center justify-between mt-6">
-                        <div class="flex items-center text-xs font-semibold space-x-2 text-gray-400">
+                        <div class="flex items-center text-xxs text-gray-400 font-semibold space-x-2">
                             <div>10 hours ago</div>
                             <div>&bull;</div>
                             <div>Category One</div>
@@ -66,10 +68,10 @@
                         <div class="flex items-center space-x-2">
                             <div class="relative bg-gray-200 text-xxs font-bold uppercase leading-none rounded-full text-center w-28 h-7 px-4 py-2">Open</div>
 
-                            <button class="bg-gray-100 hover:bg-gray-200 rounded-full h-7 transition duration-150 ease-in px-4 py-2">
+                            <button class="bg-gray-100 hover:bg-gray-200 border rounded-full h-7 transition duration-150 ease-in px-4 py-2">
                                 <svg fill="currentColor" width="24" height="6"><path d="M2.97.061A2.969 2.969 0 000 3.031 2.968 2.968 0 002.97 6a2.97 2.97 0 100-5.94zm9.184 0a2.97 2.97 0 100 5.939 2.97 2.97 0 100-5.939zm8.877 0a2.97 2.97 0 10-.003 5.94A2.97 2.97 0 0021.03.06z"></svg>
 
-                                <ul class="idea-dialog absolute text-left w-44 font-semibold bg-white shadow-dialog rounded-xl py-2 ml-8">
+                                <ul class="hidden idea-dialog absolute text-left w-44 font-semibold bg-white shadow-dialog rounded-xl py-2 ml-8">
                                     <li><a href="#" class="hover:bg-gray-100 block px-5 py-3 transition duration-150 ease-in">Mark as Spam</a></li>
                                     <li><a href="#" class="hover:bg-gray-100 block px-5 py-3 transition duration-150 ease-in">Delete Post</a></li>
                                 </ul>

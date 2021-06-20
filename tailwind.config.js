@@ -2,6 +2,7 @@ const defaultTheme = require("tailwindcss/defaultTheme");
 const colors = require("tailwindcss/colors");
 
 module.exports = {
+  mode: "jit",
   purge: [
     "./vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php",
     "./storage/framework/views/*.php",
@@ -26,6 +27,7 @@ module.exports = {
         purple: "#8b60ed",
       },
       spacing: {
+        22: "5.5rem",
         44: "11rem",
         70: "17.5rem",
         175: "43.75rem",
