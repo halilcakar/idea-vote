@@ -850,6 +850,12 @@ select {
 .z-0 {
 	z-index: 0;
 }
+.z-10 {
+	z-index: 10;
+}
+.z-20 {
+	z-index: 20;
+}
 .z-50 {
 	z-index: 50;
 }
@@ -927,6 +933,9 @@ select {
 }
 .-mr-2 {
 	margin-right: -0.5rem;
+}
+.mr-1 {
+	margin-right: 0.25rem;
 }
 .block {
 	display: block;
@@ -1030,8 +1039,14 @@ select {
 .w-32 {
 	width: 8rem;
 }
+.w-104 {
+	width: 26rem;
+}
 .w-36 {
 	width: 9rem;
+}
+.w-76 {
+	width: 19rem;
 }
 .w-48 {
 	width: 12rem;
@@ -1088,6 +1103,9 @@ select {
 }
 .cursor-pointer {
 	cursor: pointer;
+}
+.resize-none {
+	resize: none;
 }
 .resize-y {
 	resize: vertical;
@@ -1160,6 +1178,11 @@ select {
 	--tw-space-y-reverse: 0;
 	margin-top: calc(0.25rem * calc(1 - var(--tw-space-y-reverse)));
 	margin-bottom: calc(0.25rem * var(--tw-space-y-reverse));
+}
+.space-y-2 > :not([hidden]) ~ :not([hidden]) {
+	--tw-space-y-reverse: 0;
+	margin-top: calc(0.5rem * calc(1 - var(--tw-space-y-reverse)));
+	margin-bottom: calc(0.5rem * var(--tw-space-y-reverse));
 }
 .overflow-hidden {
 	overflow: hidden;
@@ -1423,6 +1446,9 @@ select {
 .font-bold {
 	font-weight: 700;
 }
+.font-normal {
+	font-weight: 400;
+}
 .uppercase {
 	text-transform: uppercase;
 }
@@ -1494,6 +1520,22 @@ select {
 .text-indigo-700 {
 	--tw-text-opacity: 1;
 	color: rgba(67, 56, 202, var(--tw-text-opacity));
+}
+.text-green {
+	--tw-text-opacity: 1;
+	color: rgba(26, 171, 139, var(--tw-text-opacity));
+}
+.text-purple {
+	--tw-text-opacity: 1;
+	color: rgba(139, 96, 237, var(--tw-text-opacity));
+}
+.text-yellow {
+	--tw-text-opacity: 1;
+	color: rgba(255, 199, 60, var(--tw-text-opacity));
+}
+.text-red {
+	--tw-text-opacity: 1;
+	color: rgba(236, 69, 79, var(--tw-text-opacity));
 }
 .underline {
 	text-decoration: underline;
@@ -1631,6 +1673,16 @@ select {
   left: -58px;
   background: #8b60ed;
   opacity: 1;
+}
+.is-admin {
+  border-width: 1px;
+  border-image-source: linear-gradient(266deg, #21c8f6 98%, #637bff -52%);
+  border-image-slice: 1;
+  background-image: linear-gradient(to bottom, #ffffff, #ffffff),
+    linear-gradient(266deg, #21c8f6 98%, #637bff -52%);
+  background-origin: border-box;
+  background-clip: content-box, border-box;
+  border-color: transparent;
 }
 .hover\:border-gray-400:hover {
 	--tw-border-opacity: 1;
