@@ -8,7 +8,7 @@
         </a>
     </div>
 
-    <div class="idea-container bg-white rounded-xl flex mt-4">    
+    <div class="idea-container bg-white rounded-xl flex mt-4">
         <div class="flex flex-col md:flex-row flex-1 px-4 py-6">
             <div class="flex-none mx-2 md:mx-0">
                 <a href="#">
@@ -17,17 +17,17 @@
             </div>
             <div class="w-full mx-2 md:mx-4">
                 <h4 class="text-xl font-semibold">
-                    <a href="#" class="hover:underline">Yet another random title can go here!</a>
+                    <a href="#" class="hover:underline">{{ $idea->title }}</a>
                 </h4>
                 <div class="text-gray-600 mt-3 line-clamp-3">
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                    {{ $idea->description }}
                 </div>
 
                 <div class="flex flex-col md:flex-row md:items-center justify-between mt-6">
                     <div class="flex items-center text-xxs text-gray-400 font-semibold space-x-2">
-                        <div class="hidden md:block font-bold text-gray-900">John Doe</div>
+                        <div class="hidden md:block font-bold text-gray-900">{{ $idea->user->name }}</div>
                         <div class="hidden md:block">&bull;</div>
-                        <div>10 hours ago</div>
+                        <div>{{ $idea->created_at->diffForHumans() }}</div>
                         <div>&bull;</div>
                         <div>Category One</div>
                         <div>&bull;</div>
@@ -35,15 +35,17 @@
                     </div>
 
                     <div x-data="{ isOpen: false }" class="flex items-center space-x-2 mt-4 md:mt-0">
-                        <div class="relative bg-gray-200 text-xxs font-bold uppercase leading-none rounded-full text-center w-28 h-7 px-4 py-2">Open</div>
+                        <div class="relative bg-gray-200 text-xxs font-bold uppercase leading-none rounded-full text-center w-28 h-7 px-4 py-2">
+                            Open
+                        </div>
 
-                        <button 
+                        <button
                             @click="isOpen = !isOpen"
                             class="relative bg-gray-100 hover:bg-gray-200 border rounded-full h-7 transition duration-150 ease-in px-4 py-2"
                         >
                             <svg fill="currentColor" width="24" height="6"><path d="M2.97.061A2.969 2.969 0 000 3.031 2.968 2.968 0 002.97 6a2.97 2.97 0 100-5.94zm9.184 0a2.97 2.97 0 100 5.939 2.97 2.97 0 100-5.939zm8.877 0a2.97 2.97 0 10-.003 5.94A2.97 2.97 0 0021.03.06z"></svg>
 
-                            <ul 
+                            <ul
                                 x-cloak
                                 x-show.transition.origin.top.left="isOpen"
                                 @click.away="isOpen = false"
@@ -58,7 +60,7 @@
 
                     <div class="flex items-center md:hidden mt-4 md:mt-0">
                         <div class="bg-gray-100 text-center rounded-xl h-10 px-4 py-2 pr-8">
-                            <div class="text-sm font-bold leading-none">12</div>    
+                            <div class="text-sm font-bold leading-none">12</div>
                             <div class="text-xxs font-semibold leading-none text-gray-400">Votes</div>
                         </div>
 
@@ -72,14 +74,14 @@
     <div class="buttons-container flex items-center justify-between mt-6">
         <div class="flex flex-col md:flex-row items-center space-x-4 md:ml-6">
             <div x-data="{ isOpen: false }" class="relative">
-                <button 
-                    type="button" 
+                <button
+                    type="button"
                     @click="isOpen = !isOpen"
                     class="flex items-center w-32 justify-center h-11 text-xs bg-blue font-bold rounded-xl border border-blue hover:bg-blue-hover text-white transition duration-150 ease-in px-6 py-3"
                 >
                     Reply
                 </button>
-                <div 
+                <div
                     x-cloak
                     x-show.transition.origin.top.left="isOpen"
                     @click.away="isOpen = false"
@@ -108,8 +110,8 @@
             </div>
 
             <div x-data="{ isOpen: false }" class="relative">
-                <button 
-                    type="button" 
+                <button
+                    type="button"
                     @click="isOpen = !isOpen"
                     class="flex items-center justify-center w-36 h-11 text-xs bg-gray-200 font-bold rounded-xl  border border-gray-200 hover:border-gray-400 transition duration-150 ease-in px-6 py-3 mt-2 md:mt-0"
                 >
@@ -119,7 +121,7 @@
                     </svg>
                 </button>
 
-                <div 
+                <div
                     x-cloak
                     x-show.transition.origin.top.left="isOpen"
                     @click.away="isOpen = false"
@@ -163,7 +165,7 @@
                         <div>
                             <textarea name="update_comment" id="update_comment" cols="30" rows="3" class="resize-none w-full text-sm bg-gray-100 rounded-xl placeholder-gray-900 border-none px-4 py-2" placeholder="Add an update comment (optional)"></textarea>
                         </div>
-                        
+
                         <div class="flex items-center justify-between space-x-3">
                             <button type="button" class="flex items-center justify-center w-1/2 h-11 text-xs bg-gray-200 font-bold rounded-xl  border border-gray-200 hover:border-gray-400 transition duration-150 ease-in px-6 py-3">
                                 <svg class="transform -rotate-45 text-gray-600 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -194,7 +196,7 @@
                 <div class="text-gray-400 text-xs leading-none">Votes</div>
             </div>
 
-            <button 
+            <button
                 type="button"
                 class="w-32 h-11 text-xs bg-gray-200 font-bold rounded-xl uppercase border border-gray-200 hover:border-gray-400 transition duration-150 ease-in px-6 py-3"
             >
@@ -227,13 +229,13 @@
                         </div>
 
                         <div x-data="{ isOpen: false }" class="flex items-center space-x-2">
-                            <button 
+                            <button
                                 @click="isOpen = !isOpen"
                                 class="relative bg-gray-100 hover:bg-gray-200 border rounded-full h-7 transition duration-150 ease-in px-4 py-2"
                             >
                                 <svg fill="currentColor" width="24" height="6"><path d="M2.97.061A2.969 2.969 0 000 3.031 2.968 2.968 0 002.97 6a2.97 2.97 0 100-5.94zm9.184 0a2.97 2.97 0 100 5.939 2.97 2.97 0 100-5.939zm8.877 0a2.97 2.97 0 10-.003 5.94A2.97 2.97 0 0021.03.06z"></svg>
 
-                                <ul 
+                                <ul
                                     x-cloak
                                     x-show.transition.origin.top.left="isOpen"
                                     @click.away="isOpen = false"
