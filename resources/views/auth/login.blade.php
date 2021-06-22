@@ -21,7 +21,7 @@
 
                 <x-input
                     id="email" class="block mt-1 w-full" type="email" name="email"
-                    value="halil@cakar.com" required autofocus />
+                    value="hcakar.1992@gmail.com" required autofocus />
             </div>
 
             <!-- Password -->
