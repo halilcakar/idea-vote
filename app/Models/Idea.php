@@ -9,29 +9,33 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Idea extends Model
 {
-    const PAGINATION_COUNT = 10;
+  const PAGINATION_COUNT = 10;
 
-    use HasFactory, Sluggable;
+  use HasFactory, Sluggable;
 
-    protected $guarded = [];
+  protected $guarded = [];
 
-    public function user(): BelongsTo
-    {
-        return $this->belongsTo(User::class);
-    }
+  public function sluggable(): array
+  {
+    return [
+        'slug' => [
+            'source' => 'title',
+        ],
+    ];
+  }
 
-    public function category(): BelongsTo
-    {
-        return $this->belongsTo(Category::class);
-    }
+  public function user(): BelongsTo
+  {
+    return $this->belongsTo(User::class);
+  }
 
+  public function category(): BelongsTo
+  {
+    return $this->belongsTo(Category::class);
+  }
 
-    public function sluggable(): array
-    {
-        return [
-            'slug' => [
-                'source' => 'title'
-            ]
-        ];
-    }
+  public function status(): BelongsTo
+  {
+    return $this->belongsTo(Status::class);
+  }
 }

@@ -70,7 +70,8 @@
           </div>
           <div class="w-full flex flex-col justify-between mx-2 md:mx-4">
             <h4 class="text-xl font-semibold mt-4 md:mt-0">
-              <a href="{{ route('idea.show', $idea) }}" class="idea-link hover:underline line-clamp-1 md:line-clamp-none">
+              <a href="{{ route('idea.show', $idea) }}"
+                 class="idea-link hover:underline line-clamp-1 md:line-clamp-none">
                 {{ $idea->title }}
               </a>
             </h4>
@@ -91,10 +92,7 @@
               </div>
 
               <div class="flex items-center space-x-2 mt-4 md:mt-0">
-                <div
-                    class="relative bg-gray-200 text-xxs font-bold uppercase leading-none rounded-full text-center w-28 h-7 px-4 py-2">
-                  Open
-                </div>
+                <div class="{{ $idea->status->classes }} relative bg-gray-200 text-xxs font-bold uppercase leading-none rounded-full text-center w-28 h-7 px-4 py-2">{{ $idea->status->name }}</div>
 
                 <button
                     @click="isOpen = !isOpen"
