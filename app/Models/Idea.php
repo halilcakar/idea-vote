@@ -9,6 +9,8 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Idea extends Model
 {
+    const PAGINATION_COUNT = 10;
+
     use HasFactory, Sluggable;
 
     protected $guarded = [];
