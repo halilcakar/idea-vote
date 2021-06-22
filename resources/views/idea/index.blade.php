@@ -37,7 +37,7 @@
           x-data
           @click="
             const clicked = $event.target;
-            
+
             const target = clicked.tagName.toLowerCase();
 
             const ignores = ['button', 'svg', 'path', 'a'];
@@ -65,7 +65,7 @@
         <div class="flex flex-col md:flex-row flex-1 px-2 py-6">
           <div class="flex-none mx-2 md:mx-0">
             <a href="#">
-              <img src="https://source.unsplash.com/200x200/?face&crop=face" class="w-14 h-14 rounded-xl" alt="avatar">
+              <img src="{{ $idea->user->getAvatar() }}" class="w-14 h-14 rounded-xl" alt="avatar">
             </a>
           </div>
           <div class="w-full flex flex-col justify-between mx-2 md:mx-4">

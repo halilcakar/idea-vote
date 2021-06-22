@@ -50,7 +50,7 @@
 </header>
 <main class="container mx-auto flex flex-col md:flex-row" style="max-width: 1000px;">
   <div class="w-70 mx-auto md:mx-0 md:mr-5">
-    <div 
+    <div
       class="bg-white block md:sticky md:top-8 border-2 border-blue rounded-xl"
       style="
         border-image-source: linear-gradient(to bottom, rgba(50, 138, 241, 0.22), rgba(99, 123, 255, 0));
