@@ -22,7 +22,8 @@ class StatusFactory extends Factory
     public function definition()
     {
         return [
-            'name' => $this->faker->words(1, true)
+            'name' => $this->faker->words(1, true),
+            'classes' => 'bg-gray-200'
         ];
     }
 }
