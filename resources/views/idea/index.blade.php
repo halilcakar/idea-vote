@@ -33,10 +33,7 @@
 
   <div class="ideas-container space-y-6 py-6">
     @foreach($ideas as $idea)
-      <livewire:idea-index
-          :idea="$idea"
-          :votesCount="$idea->votes_count"
-      />
+      <livewire:idea-index :idea="$idea" :votesCount="$idea->votes_count" />
     @endforeach
   </div>
   {{-- en of container --}}
