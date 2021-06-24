@@ -155,4 +155,53 @@ class ShowIdeasTest extends TestCase
         $response->assertSuccessful();
         $this->assertTrue(request()->path() === 'ideas/my-first-idea-2');
     }
+
+    /** @test */
+    public function inn_app_back_button_works_when_index_page_visited_first()
+    {
+        $user = User::factory()->create();
+        $statusOpen = Status::factory()->create(['name' => 'Open', 'classes' => 'bg-gray-200']);
+        $statusConsidering = Status::factory()->create(['name' => 'Considering', 'classes' => 'bg-purple text-white']);
+
+        $categoryOne = Category::factory()->create([ 'name' => 'Category 1' ]);
+        $categoryTwo = Category::factory()->create([ 'name' => 'Category 2' ]);
+
+        $ideaOne = Idea::factory()->create([
+            'user_id' => $user->id,
+            'title' => 'My first idea',
+            'category_id' => $categoryOne->id,
+            'status_id' => $statusOpen->id,
+            'description' => 'Description of my first idea',
+        ]);
+
+        $url = '/?category=Category%202&status=Considering';
+
+        $this->get($url);
+        $response = $this->get(route('idea.show', $ideaOne));
+
+        $this->assertStringContainsString($url, $response['backUrl']);
+    }
+
+    /** @test */
+    public function inn_app_back_button_works_when_show_page_only_page_visited()
+    {
+        $user = User::factory()->create();
+        $statusOpen = Status::factory()->create(['name' => 'Open', 'classes' => 'bg-gray-200']);
+        $statusConsidering = Status::factory()->create(['name' => 'Considering', 'classes' => 'bg-purple text-white']);
+
+        $categoryOne = Category::factory()->create([ 'name' => 'Category 1' ]);
+        $categoryTwo = Category::factory()->create([ 'name' => 'Category 2' ]);
+
+        $ideaOne = Idea::factory()->create([
+            'user_id' => $user->id,
+            'title' => 'My first idea',
+            'category_id' => $categoryOne->id,
+            'status_id' => $statusOpen->id,
+            'description' => 'Description of my first idea',
+        ]);
+
+        $response = $this->get(route('idea.show', $ideaOne));
+
+        $this->assertStringContainsString(route('idea.index'), $response['backUrl']);
+    }
 }

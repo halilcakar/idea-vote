@@ -1,14 +1,14 @@
 <div class="idea-and-buttons-container">
     <div class="idea-container bg-white rounded-xl flex mt-4">
         <div class="flex flex-col md:flex-row flex-1 px-4 py-6">
-            <div class="flex-none mx-2 md:mx-0">
+            <div class="flex-none mx-2">
                 <a href="#">
                     <img src="{{ $idea->user->getAvatar() }}" class="w-14 h-14 rounded-xl" alt="avatar">
                 </a>
             </div>
             <div class="w-full mx-2 md:mx-4">
-                <h4 class="text-xl font-semibold">
-                    <a href="#" class="hover:underline">{{ $idea->title }}</a>
+                <h4 class="text-xl font-semibold mt-2 md:mt-0">
+                    {{ $idea->title }}
                 </h4>
                 <div class="text-gray-600 mt-3 line-clamp-3">
                     {{ $idea->description }}
