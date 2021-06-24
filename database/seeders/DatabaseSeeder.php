@@ -20,13 +20,15 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
+        $user_count = 20;
+        $idea_count = 500;
         $user = User::factory()->create([
             'name' => 'halilcakar',
             'email' => 'hcakar.1992@gmail.com',
             'password' => bcrypt('password'),
             'email_verified_at' => Carbon::now(),
         ]);
-        User::factory(19)->create();
+        User::factory($user_count - 1)->create();
 
         Category::factory()->create(['name' => 'Category 1']);
         Category::factory()->create(['name' => 'Category 2']);
@@ -39,12 +41,12 @@ class DatabaseSeeder extends Seeder
         Status::factory()->create(['name' => 'Implemented', 'classes' => 'bg-green text-white']);
         Status::factory()->create(['name' => 'Closed', 'classes' => 'bg-red text-white']);
 
-        Idea::factory(100)->create();
+        Idea::factory($idea_count)->create();
 
         // generate unique votes. Ensure idea_id and user_id are unique for each row
-        foreach (range(1, 20) as $user_id) {
-            foreach (range(1, 100) as $idea_id) {
-                if($idea_id % 2 === 0/*(rand(0, 10) / 10) < 0.65*/) {
+        foreach (range(1, $user_count) as $user_id) {
+            foreach (range(1, $idea_count) as $idea_id) {
+                if(rand(0, 10) < 7/*$idea_id % 2 === 0*/) {
                     Vote::factory()->create([
                         'user_id' => $user_id,
                         'idea_id' => $idea_id,
