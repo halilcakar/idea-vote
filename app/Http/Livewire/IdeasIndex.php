@@ -8,6 +8,7 @@ use App\Models\Status;
 use App\Models\Vote;
 use Livewire\Component;
 use Livewire\WithPagination;
+use function PHPUnit\Framework\at;
 
 class IdeasIndex extends Component
 {
@@ -15,10 +16,12 @@ class IdeasIndex extends Component
 
     public $status;
     public $category;
+    public $filter;
 
     protected $queryString = [
         'status',
-        'category'
+        'category',
+        'filter'
     ];
 
     protected $listeners = [
@@ -33,6 +36,18 @@ class IdeasIndex extends Component
     public function updatingCategory()
     {
         $this->resetPage();
+    }
+
+    public function updatingFilter()
+    {
+        $this->resetPage();
+    }
+
+    public function updatedFilter()
+    {
+        if($this->filter === 'My Ideas' && ! auth()->check()) {
+            return redirect()->route('login');
+        }
     }
 
     public function queryStringUpdatedStatus($newStatus)
@@ -53,6 +68,12 @@ class IdeasIndex extends Component
                 })
                 ->when($this->category and $this->category !== 'All Categories', function ($query) use($categories) {
                     return $query->where('category_id', $categories->pluck('id', 'name')->get($this->category));
+                })
+                ->when($this->filter and $this->filter === 'Top Voted', function ($query) {
+                    return $query->orderByDesc('votes_count');
+                })
+                ->when($this->filter and $this->filter === 'My Ideas', function ($query) {
+                    return $query->where('user_id', auth()->id());
                 })
                 ->addSelect([
                     'voted_by_user' => Vote::select('id')
