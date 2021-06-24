@@ -21,11 +21,11 @@
 
         <div class="mt-8">
             @if($hasVoted)
-                <button class="w-20 bg-blue text-white font-bold text-xxs uppercase rounded-xl px-4 py-3 border border-gray-200 hover:border-gray-400 transition duration-150 ease-in">
+                <button wire:click.prevent="vote" class="w-20 bg-blue text-white font-bold text-xxs uppercase rounded-xl px-4 py-3 border border-gray-200 hover:border-gray-400 transition duration-150 ease-in">
                     Voted
                 </button>
             @else
-                <button class="w-20 bg-gray-200 font-bold text-xxs uppercase rounded-xl px-4 py-3 border border-gray-200 hover:border-gray-400 transition duration-150 ease-in">
+                <button wire:click.prevent="vote" class="w-20 bg-gray-200 font-bold text-xxs uppercase rounded-xl px-4 py-3 border border-gray-200 hover:border-gray-400 transition duration-150 ease-in">
                     Vote
                 </button>
             @endif
@@ -97,11 +97,11 @@
                     </div>
 
                     @if($hasVoted)
-                        <button class="w-20 bg-blue text-white border border-blue font-bold text-xxs uppercase rounded-xl hover:bg-blue-hover transition duration-150 ease-in px-4 py-3 -mx-5">
+                        <button wire:click.prevent="vote" class="w-20 bg-blue text-white border border-blue font-bold text-xxs uppercase rounded-xl hover:bg-blue-hover transition duration-150 ease-in px-4 py-3 -mx-5">
                             Voted
                         </button>
                     @else
-                        <button class="w-20 bg-gray-200 border border-gray-200 font-bold text-xxs uppercase rounded-xl hover:bg-gray-400 transition duration-150 ease-in px-4 py-3 -mx-5">
+                        <button wire:click.prevent="vote" class="w-20 bg-gray-200 border border-gray-200 font-bold text-xxs uppercase rounded-xl hover:bg-gray-400 transition duration-150 ease-in px-4 py-3 -mx-5">
                             Vote
                         </button>
                     @endif
