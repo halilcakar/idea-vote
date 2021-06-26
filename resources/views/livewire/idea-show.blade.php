@@ -36,12 +36,12 @@
               </button>
               <ul x-cloak x-show.transition.origin.top.left="isOpen" @click.away="isOpen = false" @keydown.escape.window="isOpen = false" class="idea-dialog absolute text-left w-44 font-semibold bg-white shadow-dialog rounded-xl z-10 py-3 md:ml-8 top-8 md:top-6 right-0 md:left-0">
                 @can('update', $idea)
-                <li><a @click="isOpen=false;$dispatch('custom-show-edit-modal')" href="#" class="hover:bg-gray-100 block px-5 py-3 transition duration-150 ease-in">Edit Idea</a></li>
+                <li><a @click.prevent="isOpen=false;$dispatch('custom-show-edit-modal');" href="#" class="hover:bg-gray-100 block px-5 py-3 transition duration-150 ease-in">Edit Idea</a></li>
+                @endcan
+                @can('delete', $idea)
+                <li><a @click.prevent="isOpen=false;$dispatch('custom-show-delete-modal');" href="#" class="hover:bg-gray-100 block px-5 py-3 transition duration-150 ease-in">Delete Idea</a></li>
                 @endcan
                 <li><a href="#" class="hover:bg-gray-100 block px-5 py-3 transition duration-150 ease-in">Mark as Spam</a></li>
-                @can('delete', $idea)
-                <li><a href="#" class="hover:bg-gray-100 block px-5 py-3 transition duration-150 ease-in">Delete Idea</a></li>
-                @endcan
               </ul>
             </div>
           </div>
@@ -52,7 +52,7 @@
               <div class="text-xxs font-semibold leading-none text-gray-400">Votes</div>
             </div>
             @if($hasVoted)
-            <button wire:click.prevent="vote" class="bg-blue text-white w-20 bg-gray-200 border border-blue font-bold text-xxs uppercase rounded-xl hover:bg-blue-hover transition duration-150 ease-in px-4 py-3 -mx-5">
+            <button wire:click.prevent="vote" class="bg-blue text-white w-20 border border-blue font-bold text-xxs uppercase rounded-xl hover:bg-blue-hover transition duration-150 ease-in px-4 py-3 -mx-5">
               Voted
             </button>
             @else

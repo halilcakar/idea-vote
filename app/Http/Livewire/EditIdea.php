@@ -2,8 +2,8 @@
 
 namespace App\Http\Livewire;
 
-use Symfony\Component\HttpFoundation\Response;
 use Livewire\Component;
+use Illuminate\Http\Response;
 use App\Models\Idea;
 use App\Models\Category;
 

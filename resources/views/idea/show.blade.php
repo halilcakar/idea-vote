@@ -8,10 +8,17 @@
     </a>
   </div>
 
-  <livewire:idea-show :idea="$idea" :votesCount="$votesCount" />
+  <livewire:idea-show 
+    :idea="$idea" 
+    :votesCount="$votesCount" 
+  />
 
   @can('update', $idea)
   <livewire:edit-idea :idea="$idea" />
+  @endcan
+
+  @can('delete', $idea)
+  <livewire:delete-idea :idea="$idea" />
   @endcan
 
 

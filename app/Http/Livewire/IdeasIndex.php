@@ -2,13 +2,13 @@
 
 namespace App\Http\Livewire;
 
-use App\Models\Category;
-use App\Models\Idea;
-use App\Models\Status;
-use App\Models\Vote;
-use Livewire\Component;
-use Livewire\WithPagination;
 use function PHPUnit\Framework\at;
+use Livewire\WithPagination;
+use Livewire\Component;
+use App\Models\Vote;
+use App\Models\Status;
+use App\Models\Idea;
+use App\Models\Category;
 
 class IdeasIndex extends Component
 {
@@ -52,7 +52,7 @@ class IdeasIndex extends Component
 
     public function updatedFilter()
     {
-        if($this->filter === 'My Ideas' && ! auth()->check()) {
+        if ($this->filter === 'My Ideas' && !auth()->check()) {
             return redirect()->route('login');
         }
     }
@@ -72,15 +72,26 @@ class IdeasIndex extends Component
             'ideas' => Idea::with('user', 'category', 'status')
                 ->when(
                     $this->status and $this->status !== 'All',
-                    fn($query) => $query->where('status_id', $statuses->get($this->status))
+                    fn ($query) => $query->where('status_id', $statuses->get($this->status))
                 )
                 ->when(
                     $this->category and $this->category !== 'All Categories',
-                    fn($query) => $query->where('category_id', $categories->pluck('id', 'name')->get($this->category))
+                    fn ($query) =>
+                    $query->where('category_id', $categories->pluck('id', 'name')
+                        ->get($this->category))
                 )
-                ->when($this->filter and $this->filter === 'Top Voted', fn($query) => $query->orderByDesc('votes_count'))
-                ->when($this->filter and $this->filter === 'My Ideas', fn($query) => $query->where('user_id', auth()->id()))
-                ->when(strlen($this->search) >= 3, fn($query) => $query->where('title', 'like', '%'.$this->search.'%'))
+                ->when(
+                    $this->filter and $this->filter === 'Top Voted',
+                    fn ($query) => $query->orderByDesc('votes_count')
+                )
+                ->when(
+                    $this->filter and $this->filter === 'My Ideas',
+                    fn ($query) => $query->orderByDesc('votes_count')->where('user_id', auth()->id())
+                )
+                ->when(
+                    strlen($this->search) >= 3,
+                    fn ($query) => $query->where('title', 'like', '%' . $this->search . '%')
+                )
                 ->addSelect([
                     'voted_by_user' => Vote::select('id')
                         ->where('user_id', auth()->id())
