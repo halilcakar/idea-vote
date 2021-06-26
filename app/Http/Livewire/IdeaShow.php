@@ -2,10 +2,10 @@
 
 namespace App\Http\Livewire;
 
-use App\Exceptions\DuplicateVoteNotException;
-use App\Exceptions\VoteNotFoundException;
-use App\Models\Idea;
 use Livewire\Component;
+use App\Models\Idea;
+use App\Exceptions\VoteNotFoundException;
+use App\Exceptions\DuplicateVoteNotException;
 
 class IdeaShow extends Component
 {
@@ -13,7 +13,10 @@ class IdeaShow extends Component
     public $votesCount;
     public $hasVoted;
 
-    protected $listeners = ['statusWasUpdatedEvent'];
+    protected $listeners = [
+        'statusWasUpdatedEvent' => 'refreshIdea',
+        'ideaWasUpdated' => 'refreshIdea'
+    ];
 
     public function mount(Idea $idea, $votesCount)
     {
@@ -22,14 +25,14 @@ class IdeaShow extends Component
         $this->hasVoted = $idea->isVotedByUser(auth()->user());
     }
 
-    public function statusWasUpdatedEvent()
+    public function refreshIdea()
     {
         $this->idea->refresh();
     }
 
     public function vote()
     {
-        if(! auth()->check()) {
+        if (!auth()->check()) {
             return redirect(route('login'));
         }
 
