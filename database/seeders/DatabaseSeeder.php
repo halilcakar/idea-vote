@@ -2,14 +2,14 @@
 
 namespace Database\Seeders;
 
-use App\Models\Category;
-use App\Models\Idea;
-use App\Models\Status;
-use App\Models\User;
-use App\Models\Vote;
-use Carbon\Carbon;
-use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Seeder;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Carbon\Carbon;
+use App\Models\Vote;
+use App\Models\User;
+use App\Models\Status;
+use App\Models\Idea;
+use App\Models\Category;
 
 class DatabaseSeeder extends Seeder
 {
