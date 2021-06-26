@@ -2,12 +2,12 @@
 
 namespace Tests\Feature;
 
-use App\Models\Category;
-use App\Models\Idea;
-use App\Models\Status;
-use App\Models\User;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
+use Illuminate\Foundation\Testing\RefreshDatabase;
+use App\Models\User;
+use App\Models\Status;
+use App\Models\Idea;
+use App\Models\Category;
 
 class ShowIdeasTest extends TestCase
 {
@@ -16,30 +16,11 @@ class ShowIdeasTest extends TestCase
     /** @test */
     public function list_of_ideas_shows_on_main_page()
     {
-        $user = User::factory()->create();
-        $statusOpen = Status::factory()->create(['name' => 'Open', 'classes' => 'bg-gray-200']);
-        $statusConsidering = Status::factory()->create(['name' => 'Considering', 'classes' => 'bg-purple text-white']);
-
-        $categoryOne = Category::factory()->create([
-            'name' => 'Category 1',
-        ]);
-        $ideaOne = Idea::factory()->create([
-            'user_id' => $user->id,
-            'title' => 'My first idea',
-            'category_id' => $categoryOne->id,
-            'status_id' => $statusOpen->id,
-            'description' => 'Description of my first idea',
-        ]);
-
-        $categoryTwo = Category::factory()->create([
-            'name' => 'Category 2',
-        ]);
-        $ideaTwo = Idea::factory()->create([
-            'user_id' => $user->id,
-            'title' => 'My second idea',
-            'category_id' => $categoryTwo->id,
-            'status_id' => $statusConsidering->id,
-            'description' => 'Description of my second idea',
+        [$categoryOne, $categoryTwo] = Category::factory(2)->create();
+        [$statusOne, $statusTwo] = Status::factory(2)->create();
+        [$ideaOne, $ideaTwo] = Idea::factory()->createMany([
+            ['category_id' => $categoryOne->id, 'status_id' => $statusOne->id],
+            ['category_id' => $categoryTwo->id, 'status_id' => $statusTwo->id]
         ]);
 
         $response = $this->get(route('idea.index'));
@@ -48,31 +29,24 @@ class ShowIdeasTest extends TestCase
         $response->assertSee($ideaOne->title);
         $response->assertSee($ideaOne->description);
         $response->assertSee($categoryOne->name);
-        // $response->assertSee('<div\n class="200 relative bg-gray-200 text-xxs font-bold uppercase leading-none rounded-full text-center w-28 h-7 px-4 py-2">Open</div>', false);
+        $response->assertSee($statusOne->name);
 
         $response->assertSee($ideaTwo->title);
         $response->assertSee($ideaTwo->description);
         $response->assertSee($categoryTwo->name);
-        // $response->assertSee('<div class="bg-purple text-white relative bg-gray-200 text-xxs font-bold uppercase leading-none rounded-full text-center w-28 h-7 px-4 py-2">Considering</div>', false);
+        $response->assertSee($statusTwo->name);
     }
 
     /** @test */
     public function single_idea_shows_on_show_page()
     {
-        $user = User::factory()->create();
+        $category = Category::factory()->create();
 
-        $status = Status::factory()->create(['name' => 'In Progress', 'classes' => 'bg-yellow text-white']);
-
-        $category = Category::factory()->create([
-            'name' => 'Category 1',
-        ]);
+        $status = Status::factory()->create();
 
         $idea = Idea::factory()->create([
-            'user_id' => $user->id,
-            'title' => 'My first idea',
             'category_id' => $category->id,
-            'status_id' => $status->id,
-            'description' => 'Description of my first idea',
+            'status_id' => $status->id
         ]);
 
         $response = $this->get(route('idea.show', $idea));
@@ -81,25 +55,16 @@ class ShowIdeasTest extends TestCase
         $response->assertSee($idea->title);
         $response->assertSee($idea->description);
         $response->assertSee($category->name);
-        // $response->assertSee('<div class="bg-yellow text-white relative bg-gray-200 text-xxs font-bold uppercase leading-none rounded-full text-center w-28 h-7 px-4 py-2">In Progress</div>', false);
-
+        $response->assertSee($status->name);
     }
 
     /** @test */
     public function ideas_pagination_works()
     {
-        $user = User::factory()->create();
-
-        $status = Status::factory()->create(['name' => 'In Progress', 'classes' => 'bg-yellow text-white']);
-
-        $category = Category::factory()->create([
-            'name' => 'Category 1',
-        ]);
+        $category = Category::factory()->create(['name' => 'Category 1']);
 
         Idea::factory(Idea::PAGINATION_COUNT + 1)->create([
-            'category_id' => $category->id,
-            'status_id' => $status->id,
-            'user_id' => $user->id,
+            'category_id' => $category->id
         ]);
 
         $ideaOne = Idea::find(1);
@@ -124,26 +89,7 @@ class ShowIdeasTest extends TestCase
     /** @test */
     public function same_idea_title_different_slugs()
     {
-        $user = User::factory()->create();
-
-        $category = Category::factory()->create(['name' => 'Category 1']);
-
-        $status = Status::factory()->create(['name' => 'In Progress', 'classes' => 'bg-yellow text-white']);
-
-        $ideaOne = Idea::factory()->create([
-            'title' => 'My first idea',
-            'user_id' => $user->id,
-            'status_id' => $status->id,
-            'category_id' => $category->id,
-            'description' => 'Description of my first idea',
-        ]);
-        $ideaTwo = Idea::factory()->create([
-            'title' => 'My first idea',
-            'user_id' => $user->id,
-            'status_id' => $status->id,
-            'category_id' => $category->id,
-            'description' => 'Description of my second idea',
-        ]);
+        [$ideaOne, $ideaTwo] = Idea::factory(2)->create(['title' => 'My first idea']);
 
         $response = $this->get(route('idea.show', $ideaOne));
 
@@ -159,24 +105,12 @@ class ShowIdeasTest extends TestCase
     /** @test */
     public function inn_app_back_button_works_when_index_page_visited_first()
     {
-        $user = User::factory()->create();
-        $statusOpen = Status::factory()->create(['name' => 'Open', 'classes' => 'bg-gray-200']);
-        $statusConsidering = Status::factory()->create(['name' => 'Considering', 'classes' => 'bg-purple text-white']);
-
-        $categoryOne = Category::factory()->create([ 'name' => 'Category 1' ]);
-        $categoryTwo = Category::factory()->create([ 'name' => 'Category 2' ]);
-
-        $ideaOne = Idea::factory()->create([
-            'user_id' => $user->id,
-            'title' => 'My first idea',
-            'category_id' => $categoryOne->id,
-            'status_id' => $statusOpen->id,
-            'description' => 'Description of my first idea',
-        ]);
+        $ideaOne = Idea::factory()->create();
 
         $url = '/?category=Category%202&status=Considering';
 
         $this->get($url);
+
         $response = $this->get(route('idea.show', $ideaOne));
 
         $this->assertStringContainsString($url, $response['backUrl']);
@@ -185,20 +119,7 @@ class ShowIdeasTest extends TestCase
     /** @test */
     public function inn_app_back_button_works_when_show_page_only_page_visited()
     {
-        $user = User::factory()->create();
-        $statusOpen = Status::factory()->create(['name' => 'Open', 'classes' => 'bg-gray-200']);
-        $statusConsidering = Status::factory()->create(['name' => 'Considering', 'classes' => 'bg-purple text-white']);
-
-        $categoryOne = Category::factory()->create([ 'name' => 'Category 1' ]);
-        $categoryTwo = Category::factory()->create([ 'name' => 'Category 2' ]);
-
-        $ideaOne = Idea::factory()->create([
-            'user_id' => $user->id,
-            'title' => 'My first idea',
-            'category_id' => $categoryOne->id,
-            'status_id' => $statusOpen->id,
-            'description' => 'Description of my first idea',
-        ]);
+        $ideaOne = Idea::factory()->create();
 
         $response = $this->get(route('idea.show', $ideaOne));
 

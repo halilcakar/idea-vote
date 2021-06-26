@@ -24,7 +24,9 @@ class GravatarTest extends TestCase
             $gravatarUrl = $user->getAvatar();
 
             $this->assertEquals(
-                "https://www.gravatar.com/avatar/".md5($user->email)."?s=200&d=https://s3.amazonaws.com/laracasts/images/forum/avatars/default-avatar-". ($key + 1) .".png",
+                "https://www.gravatar.com/avatar/" . md5($user->email)
+                    . "?s=200&d=https://s3.amazonaws.com/laracasts/images/forum/avatars/default-avatar-"
+                    . ($key + 1) . ".png",
                 $gravatarUrl
             );
 

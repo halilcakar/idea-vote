@@ -20,23 +20,15 @@ class NotifyAllVotersTest extends TestCase
     /** @test */
     public function it_sends_an_email_to_all_voters()
     {
-        $user = User::factory()->create(['email' => 'hcakar.1992@gmail.com']);
+        $user = User::factory()->create();
         $userB = User::factory()->create();
 
-        $categoryOne = Category::factory()->create(['name' => 'Category 1']);
+        $idea = Idea::factory()->create();
 
-        $statusConsidering = Status::factory()->create(['name' => 'Considering']);
-
-        $idea = Idea::factory()->create([
-            'user_id' => $user->id,
-            'category_id' => $categoryOne->id,
-            'status_id' => $statusConsidering->id,
-            'title' => 'My First Idea',
-            'description' => 'Description for my first idea',
+        Vote::factory()->createMany([
+            ['idea_id' => $idea->id, 'user_id' => $user->id],
+            ['idea_id' => $idea->id, 'user_id' => $userB->id],
         ]);
-
-        Vote::factory()->create(['idea_id' => $idea->id, 'user_id' => $user->id]);
-        Vote::factory()->create(['idea_id' => $idea->id, 'user_id' => $userB->id]);
 
         Mail::fake();
 

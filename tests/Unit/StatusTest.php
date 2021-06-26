@@ -16,31 +16,29 @@ class StatusTest extends TestCase
     /** @test */
     public function can_get_count_of_each_status()
     {
-        $user = User::factory()->create();
+        $statusOpen = Status::factory()->create(['name' => 'Open']);
+        $statusConsidering = Status::factory()->create(['name' => 'Considering']);
+        $statusOpenInProgress = Status::factory()->create(['name' => 'In Progress']);
+        $statusImplemented = Status::factory()->create(['name' => 'Implemented']);
+        $statusClosed = Status::factory()->create(['name' => 'Closed']);
 
-        $category = Category::factory()->create(['name' => 'Category 1']);
-
-        $statusOpen = Status::factory()->create(['name' => 'Open', 'classes' => 'bg-gray-200']);
-        $statusConsidering = Status::factory()->create(['name' => 'Considering', 'classes' => 'bg-purple text-white']);
-        $statusOpenInProgress = Status::factory()->create(['name' => 'In Progress', 'classes' => 'bg-yellow text-white']);
-        $statusImplemented = Status::factory()->create(['name' => 'Implemented', 'classes' => 'bg-green text-white']);
-        $statusClosed = Status::factory()->create(['name' => 'Closed', 'classes' => 'bg-red text-white']);
-
-        Idea::factory()->create([ 'status_id' => $statusOpen->id, 'user_id' => $user->id, 'category_id' => $category->id ]);
-        Idea::factory()->create([ 'status_id' => $statusConsidering->id, 'user_id' => $user->id, 'category_id' => $category->id ]);
-        Idea::factory()->create([ 'status_id' => $statusConsidering->id, 'user_id' => $user->id, 'category_id' => $category->id ]);
-        Idea::factory()->create([ 'status_id' => $statusOpenInProgress->id, 'user_id' => $user->id, 'category_id' => $category->id ]);
-        Idea::factory()->create([ 'status_id' => $statusOpenInProgress->id, 'user_id' => $user->id, 'category_id' => $category->id ]);
-        Idea::factory()->create([ 'status_id' => $statusOpenInProgress->id, 'user_id' => $user->id, 'category_id' => $category->id ]);
-        Idea::factory()->create([ 'status_id' => $statusImplemented->id, 'user_id' => $user->id, 'category_id' => $category->id ]);
-        Idea::factory()->create([ 'status_id' => $statusImplemented->id, 'user_id' => $user->id, 'category_id' => $category->id ]);
-        Idea::factory()->create([ 'status_id' => $statusImplemented->id, 'user_id' => $user->id, 'category_id' => $category->id ]);
-        Idea::factory()->create([ 'status_id' => $statusImplemented->id, 'user_id' => $user->id, 'category_id' => $category->id ]);
-        Idea::factory()->create([ 'status_id' => $statusClosed->id, 'user_id' => $user->id, 'category_id' => $category->id ]);
-        Idea::factory()->create([ 'status_id' => $statusClosed->id, 'user_id' => $user->id, 'category_id' => $category->id ]);
-        Idea::factory()->create([ 'status_id' => $statusClosed->id, 'user_id' => $user->id, 'category_id' => $category->id ]);
-        Idea::factory()->create([ 'status_id' => $statusClosed->id, 'user_id' => $user->id, 'category_id' => $category->id ]);
-        Idea::factory()->create([ 'status_id' => $statusClosed->id, 'user_id' => $user->id, 'category_id' => $category->id ]);
+        Idea::factory()->createMany([
+            ['status_id' => $statusOpen->id],
+            ['status_id' => $statusConsidering->id],
+            ['status_id' => $statusConsidering->id],
+            ['status_id' => $statusOpenInProgress->id],
+            ['status_id' => $statusOpenInProgress->id],
+            ['status_id' => $statusOpenInProgress->id],
+            ['status_id' => $statusImplemented->id],
+            ['status_id' => $statusImplemented->id],
+            ['status_id' => $statusImplemented->id],
+            ['status_id' => $statusImplemented->id],
+            ['status_id' => $statusClosed->id],
+            ['status_id' => $statusClosed->id],
+            ['status_id' => $statusClosed->id],
+            ['status_id' => $statusClosed->id],
+            ['status_id' => $statusClosed->id],
+        ]);
 
 
         $this->assertEquals(15, Status::getCounts()['all_statuses']);
