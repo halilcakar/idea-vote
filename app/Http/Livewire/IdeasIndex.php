@@ -2,7 +2,6 @@
 
 namespace App\Http\Livewire;
 
-use function PHPUnit\Framework\at;
 use Livewire\WithPagination;
 use Livewire\Component;
 use App\Models\Vote;
@@ -87,6 +86,11 @@ class IdeasIndex extends Component
                 ->when(
                     $this->filter and $this->filter === 'My Ideas',
                     fn ($query) => $query->orderByDesc('votes_count')->where('user_id', auth()->id())
+                )
+                ->when(
+                    $this->filter and $this->filter === 'Spam Ideas'
+                        && auth()->check() && auth()->user()->isAdmin(),
+                    fn ($query) => $query->where('spam_reports', '>', 0)->orderByDesc('spam_reports')
                 )
                 ->when(
                     strlen($this->search) >= 3,

@@ -8,12 +8,7 @@ use App\Models\Idea;
 
 class DeleteIdea extends Component
 {
-    public $idea;
-
-    public function mount(Idea $idea)
-    {
-        $this->idea = $idea;
-    }
+    public Idea $idea;
 
     public function deleteIdea()
     {

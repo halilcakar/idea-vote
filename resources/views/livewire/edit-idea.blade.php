@@ -1,13 +1,13 @@
 <div 
+  x-cloak 
+  x-show="isOpen" 
   x-data="{ isOpen: false }" 
-  x-cloak x-show="isOpen" 
   x-init="window.livewire.on('ideaWasUpdated', () => isOpen = false)"
+  @keydown.escape.window="isOpen = false" 
   @custom-show-edit-modal.window="
     isOpen = true;
     $nextTick(() => $refs.ideaTitle.focus());
-  " 
-  @keydown.escape.window="isOpen = false" 
-  @click.away="isOpen = false"
+  "
   class="fixed z-10 inset-0 overflow-y-auto" 
   aria-labelledby="modal-title" 
   role="dialog" aria-modal="true"
@@ -20,6 +20,7 @@
     ></div>
 
     <div 
+      @click.away="isOpen = false"
       x-show.transition.origin.bottom.duration.300ms="isOpen"
       class="modal bg-white rounded-tl-xl rounded-tr-xl overflow-hidden transform transition-all py-4 sm:max-w-lg sm:w-full"
     >

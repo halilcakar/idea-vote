@@ -21,7 +21,7 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         $user_count = 20;
-        $idea_count = 500;
+        $idea_count = 250;
         $user = User::factory()->create([
             'name' => 'halilcakar',
             'email' => 'hcakar.1992@gmail.com',

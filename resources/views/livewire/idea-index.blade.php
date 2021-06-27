@@ -1,14 +1,14 @@
 <div x-data @click="
-        const clicked = $event.target;
+    const clicked = $event.target;
 
-        const target = clicked.tagName.toLowerCase();
+    const target = clicked.tagName.toLowerCase();
 
-        const ignores = ['button', 'svg', 'path', 'a'];
+    const ignores = ['button', 'svg', 'path', 'a'];
 
-        if(! ignores.includes(target)) {
-          clicked.closest('.idea-container').querySelector('.idea-link').click();
-        }
-      " class="idea-container cursor-pointer bg-white rounded-xl flex hover:shadow-card transition duration-150 ease-in">
+    if(! ignores.includes(target)) {
+      clicked.closest('.idea-container').querySelector('.idea-link').click();
+    }
+  " class="idea-container cursor-pointer bg-white rounded-xl flex hover:shadow-card transition duration-150 ease-in">
   <div class="hidden md:block border-r border-gray-100 px-5 py-8">
     <div class="text-center">
       <div class="font-semibold text-2xl @if($hasVoted) text-blue @endif">{{ $votesCount }}</div>
@@ -41,6 +41,9 @@
         </a>
       </h4>
       <div class="text-gray-600 mt-3 line-clamp-3">
+        @admin($idea->spam_reports > 0)
+          <div class="text-red mb-2">Spam Reports: {{ $idea->spam_reports }}</div>
+        @endadmin
         {{ $idea->description }}
       </div>
 

@@ -2,12 +2,12 @@
   x-cloak 
   x-show="isOpen" 
   x-data="{ isOpen: false }" 
-  x-init="window.livewire.on('ideaWasDeleted', () => isOpen = false)"
-  @keydown.escape.window="isOpen = false"
-  @custom-show-delete-modal.window="
+  x-init="window.livewire.on('ideaWasMarkedAsNotSpam', () => isOpen = false)"
+  @keydown.escape.window="isOpen = false" 
+  @custom-show-mark-idea-as-not-spam-modal.window="
     isOpen = true;
-    $nextTick(() => $refs.confirmButton.focus());
-  "
+    $nextTick(() => $refs.button.focus());
+  " 
   class="fixed z-10 inset-0 overflow-y-auto" 
   aria-labelledby="modal-title" role="dialog" aria-modal="true"
 >
@@ -22,7 +22,7 @@
     <span class="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">&#8203;</span>
 
     <div 
-      @click.away="isOpen = false"
+      @click.away="isOpen = false" 
       x-show.transition.opacity.duration.300ms="isOpen"
       class="inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full"
     >
@@ -35,19 +35,19 @@
           </div>
           <div class="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left">
             <h3 class="text-lg leading-6 font-medium text-gray-900" id="modal-title">
-              Delete Idea
+              Reset Spam Counter
             </h3>
             <div class="mt-2">
               <p class="text-sm text-gray-500">
-                Are you sure you want to delete this idea? This action cannot be undone.
+                Are you sure you want to mark this idea as NOT spam? This will reset the spam counter to 0.
               </p>
             </div>
           </div>
         </div>
       </div>
       <div class="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
-        <button x-ref="confirmButton" wire:click="deleteIdea" type="button" class="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-blue text-base font-medium text-white hover:bg-blue-hover focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue sm:ml-3 sm:w-auto sm:text-sm">
-          Delete
+        <button x-ref="button" wire:click="markAsNotSpam" type="button" class="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-blue text-base font-medium text-white hover:bg-blue-hover focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue sm:ml-3 sm:w-auto sm:text-sm">
+          Reset Spam Counter
         </button>
         <button @click="isOpen=false;" type="button" class="mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm">
           Cancel

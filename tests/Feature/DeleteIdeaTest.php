@@ -3,14 +3,11 @@
 namespace Tests\Feature;
 
 use Tests\TestCase;
-use Symfony\Component\HttpFoundation\Response;
 use Livewire\Livewire;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use App\Models\User;
 use App\Models\Idea;
-use App\Models\Category;
 use App\Http\Livewire\IdeaShow;
-use App\Http\Livewire\EditIdea;
 use App\Http\Livewire\DeleteIdea;
 
 class DeleteIdeaTest extends TestCase
