@@ -1,10 +1,30 @@
 <div
-  x-data="{ isOpen: false }"
+  x-data="{
+    isOpen: false,
+    toggle() {
+      this.isOpen = !this.isOpen;
+      this.$nextTick(() => this.isOpen && this.$refs.comment.focus());
+    }
+  }"
   @keydown.escape.window="isOpen = false"
-  x-init="Livewire.on('commentWasAdded', () => isOpen = false)"
+  x-init="
+    Livewire.on('commentWasAdded', () => isOpen = false);
+
+    Livewire.hook('message.processed', (message, component) => {
+      if(
+          message.updateQueue[0].payload.event === 'commentWasAdded'
+          && message.component.fingerprint.name === 'idea-comments'
+        ) {
+        const last = document.querySelector('.comment-container:last-child');
+        last.scrollIntoView({ behavior: 'smooth' });
+        last.classList.add('bg-green-50');
+        setTimeout(() => last.classList.remove('bg-green-50'), 3000);
+      }
+    });
+  "
   class="relative"
 >
-  <button type="button" @click="isOpen = !isOpen" class="flex items-center w-32 justify-center h-11 text-xs bg-blue font-bold rounded-xl border border-blue hover:bg-blue-hover text-white transition duration-150 ease-in px-6 py-3">
+  <button type="button" @click="toggle" class="flex items-center w-32 justify-center h-11 text-xs bg-blue font-bold rounded-xl border border-blue hover:bg-blue-hover text-white transition duration-150 ease-in px-6 py-3">
     Reply
   </button>
   <div x-cloak x-show.transition.origin.top.left="isOpen" @click.away="isOpen = false" @keydown.escape.window="isOpen = false" class="absolute z-10 w-64 md:w-104 texxt-left font-semibold text-sm bg-white shadow-dialog rounded-xl mt-2">
@@ -13,6 +33,7 @@
       <div>
         <textarea
           wire:model="comment"
+          x-ref="comment"
           name="post_comment"
           id="post_comment"
           cols="30" rows="4"
