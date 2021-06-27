@@ -18,6 +18,8 @@ class DeleteIdea extends Component
 
         $this->idea->delete();
 
+        session()->flash('success_message', 'Idea was deleted succesfully!');
+
         return redirect()->route('idea.index');
     }
 

@@ -95,6 +95,14 @@
   </div>
   <div class="invisible w-24"></div>
 </main>
+
+@flash('success_message')
+  <x-notification-success
+    message-to-display="{{ session('success_message') }}"
+    :redirect="true"
+  />
+@endflash
+
 <livewire:scripts />
 </body>
 </html>

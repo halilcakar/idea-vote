@@ -28,5 +28,10 @@ class AppServiceProvider extends ServiceProvider
             'admin',
             fn ($value = true) => !!$value && auth()->check() and auth()->user()->isAdmin()
         );
+
+        Blade::if(
+            'flash',
+            fn ($value = '') => $value !== '' && session($value)
+        );
     }
 }
