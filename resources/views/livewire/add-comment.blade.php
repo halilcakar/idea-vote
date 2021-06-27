@@ -20,6 +20,11 @@
         last.classList.add('bg-green-50');
         setTimeout(() => last.classList.remove('bg-green-50'), 3000);
       }
+
+      if(['gotoPage', 'nextPage', 'previousPage'].includes(message.updateQueue[0].method)) {
+        const first = document.querySelector('.comment-container:first-child');
+        first.scrollIntoView({ behavior: 'smooth' });
+      }
     });
   "
   class="relative"

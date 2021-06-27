@@ -13,11 +13,11 @@ use App\Exceptions\DuplicateVoteNotException;
 
 class Idea extends Model
 {
-    const PAGINATION_COUNT = 10;
-
     use HasFactory, Sluggable;
 
     protected $guarded = [];
+
+    protected $perPage = 10;
 
     public function sluggable(): array
     {

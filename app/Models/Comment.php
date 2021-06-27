@@ -12,6 +12,8 @@ class Comment extends Model
 
     protected $guarded = [];
 
+    protected $perPage = 20;
+
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);

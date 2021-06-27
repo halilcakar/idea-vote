@@ -50,7 +50,6 @@
     {{-- en of container --}}
 
     <div class="my-8">
-        {{--{{ $ideas->links() }}--}}
-        {{ $ideas->appends(request()->query())->links() }}
+        {{ $ideas->links() }}
     </div>
 </div>
