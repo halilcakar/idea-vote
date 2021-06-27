@@ -20,6 +20,7 @@
     Livewire.on('ideaWasMarkedAsSpam', m => showNotification(m));
     Livewire.on('ideaWasMarkedAsNotSpam', m => showNotification(m));
     Livewire.on('statusWasUpdatedEvent', m => showNotification(m));
+    Livewire.on('commentWasAdded', m => showNotification(m));
     @endif
   "
   x-cloak
