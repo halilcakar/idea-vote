@@ -43,7 +43,7 @@
           id="post_comment"
           cols="30" rows="4"
           required
-          class="resize-none w-full text-sm bg-gray-100 rounded-xl placeholder-gray-900 border-none px-4 py-2" placeholder="Ho ahead, don't be shy. Share your houghts..."
+          class="resize-none w-full text-sm bg-gray-100 rounded-xl placeholder-gray-900 border-none px-4 py-2" placeholder="Ho ahead, don't be shy. Share your thoughts..."
         ></textarea>
         @error('comment')
           <p class="text-red text-xs mt-1">{{ $message }}</p>
