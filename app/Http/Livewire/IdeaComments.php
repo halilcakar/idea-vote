@@ -13,9 +13,7 @@ class IdeaComments extends Component
 
     public Idea $idea;
 
-    protected $listeners = [
-        'commentWasAdded'
-    ];
+    protected $listeners = ['commentWasAdded'];
 
     public function commentWasAdded()
     {

@@ -1,25 +1,25 @@
 <div class="idea-and-buttons-container">
-  <div class="idea-container bg-white rounded-xl flex mt-4">
-    <div class="flex flex-col md:flex-row flex-1 px-4 py-6">
+  <div class="flex mt-4 bg-white idea-container rounded-xl">
+    <div class="flex flex-col flex-1 px-4 py-6 md:flex-row">
       <div class="flex-none mx-2">
         <a href="#">
           <img src="{{ $idea->user->getAvatar() }}" class="w-14 h-14 rounded-xl" alt="avatar">
         </a>
       </div>
       <div class="w-full mx-2 md:mx-4">
-        <h4 class="text-xl font-semibold mt-2 md:mt-0">
+        <h4 class="mt-2 text-xl font-semibold md:mt-0">
           {{ $idea->title }}
         </h4>
-        <div class="text-gray-600 mt-3 line-clamp-3">
+        <div class="mt-3 text-gray-600 line-clamp-3">
           @admin($idea->spam_reports > 0)
-            <div class="text-red mb-2">Spam Reports: {{ $idea->spam_reports }}</div>
+            <div class="mb-2 text-red">Spam Reports: {{ $idea->spam_reports }}</div>
           @endadmin
           {{ $idea->description }}
         </div>
 
-        <div class="flex flex-col md:flex-row md:items-center justify-between mt-6">
-          <div class="flex items-center text-xxs text-gray-400 font-semibold space-x-2">
-            <div class="hidden md:block font-bold text-gray-900">{{ $idea->user->name }}</div>
+        <div class="flex flex-col justify-between mt-6 md:flex-row md:items-center">
+          <div class="flex items-center space-x-2 font-semibold text-gray-400 text-xxs">
+            <div class="hidden font-bold text-gray-900 md:block">{{ $idea->user->name }}</div>
             <div class="hidden md:block">&bull;</div>
             <div>{{ $idea->created_at->diffForHumans() }}</div>
             <div>&bull;</div>
@@ -28,43 +28,43 @@
             <div class="text-gray-900">{{ $idea->comments()->count() }} Comments</div>
           </div>
 
-          <div x-data="{ isOpen: false }" class="flex items-center space-x-2 mt-4 md:mt-0">
+          <div x-data="{ isOpen: false }" class="flex items-center mt-4 space-x-2 md:mt-0">
             <div class="{{ $idea->status->classes }} relative bg-gray-200 text-xxs font-bold uppercase leading-none rounded-full text-center w-28 h-7 px-4 py-2">{{ $idea->status->name }}</div>
 
             @auth
               <div class="relative">
-                <button @click="isOpen = !isOpen" class="relative bg-gray-100 hover:bg-gray-200 border rounded-full h-7 transition duration-150 ease-in px-4 py-2">
+                <button @click="isOpen = !isOpen" class="relative px-4 py-2 transition duration-150 ease-in bg-gray-100 border rounded-full hover:bg-gray-200 h-7">
                   <svg fill="currentColor" width="24" height="6">
                     <path d="M2.97.061A2.969 2.969 0 000 3.031 2.968 2.968 0 002.97 6a2.97 2.97 0 100-5.94zm9.184 0a2.97 2.97 0 100 5.939 2.97 2.97 0 100-5.939zm8.877 0a2.97 2.97 0 10-.003 5.94A2.97 2.97 0 0021.03.06z"></path>
                   </svg>
                 </button>
-                <ul x-cloak x-show.transition.origin.top.left="isOpen" @click.away="isOpen = false" @keydown.escape.window="isOpen = false" class="idea-dialog absolute text-left w-44 font-semibold bg-white shadow-dialog rounded-xl z-10 py-3 md:ml-8 top-8 md:top-6 right-0 md:left-0">
+                <ul x-cloak x-show.transition.origin.top.left="isOpen" @click.away="isOpen = false" @keydown.escape.window="isOpen = false" class="absolute right-0 z-10 py-3 font-semibold text-left bg-white idea-dialog w-44 shadow-dialog rounded-xl md:ml-8 top-8 md:top-6 md:left-0">
                   @can('update', $idea)
-                  <li><a @click.prevent="isOpen=false;$dispatch('custom-show-edit-modal');" href="#" class="hover:bg-gray-100 block px-5 py-3 transition duration-150 ease-in">Edit Idea</a></li>
+                  <li><a @click.prevent="isOpen=false;$dispatch('custom-show-edit-modal');" href="#" class="block px-5 py-3 transition duration-150 ease-in hover:bg-gray-100">Edit Idea</a></li>
                   @endcan
                   @can('delete', $idea)
-                  <li><a @click.prevent="isOpen=false;$dispatch('custom-show-delete-modal');" href="#" class="hover:bg-gray-100 block px-5 py-3 transition duration-150 ease-in">Delete Idea</a></li>
+                  <li><a @click.prevent="isOpen=false;$dispatch('custom-show-delete-modal');" href="#" class="block px-5 py-3 transition duration-150 ease-in hover:bg-gray-100">Delete Idea</a></li>
                   @endcan
-                  <li><a @click.prevent="isOpen=false;$dispatch('custom-show-mark-idea-as-spam-modal');" href="#" class="hover:bg-gray-100 block px-5 py-3 transition duration-150 ease-in">Mark as Spam</a></li>
+                  <li><a @click.prevent="isOpen=false;$dispatch('custom-show-mark-idea-as-spam-modal');" href="#" class="block px-5 py-3 transition duration-150 ease-in hover:bg-gray-100">Mark as Spam</a></li>
                   @admin($idea->spam_reports > 0)
-                  <li><a @click.prevent="isOpen=false;$dispatch('custom-show-mark-idea-as-not-spam-modal');" href="#" class="hover:bg-gray-100 block px-5 py-3 transition duration-150 ease-in">Not Spam</a></li>
+                  <li><a @click.prevent="isOpen=false;$dispatch('custom-show-mark-idea-as-not-spam-modal');" href="#" class="block px-5 py-3 transition duration-150 ease-in hover:bg-gray-100">Not Spam</a></li>
                   @endadmin
                 </ul>
               </div>
             @endauth
           </div>
 
-          <div class="flex items-center md:hidden mt-4 md:mt-0">
-            <div class="bg-gray-100 text-center rounded-xl h-10 px-4 py-2 pr-8">
+          <div class="flex items-center mt-4 md:hidden md:mt-0">
+            <div class="h-10 px-4 py-2 pr-8 text-center bg-gray-100 rounded-xl">
               <div class="text-sm font-bold leading-none @if($hasVoted) text-blue @endif">{{ $votesCount }}</div>
-              <div class="text-xxs font-semibold leading-none text-gray-400">Votes</div>
+              <div class="font-semibold leading-none text-gray-400 text-xxs">Votes</div>
             </div>
             @if($hasVoted)
-            <button wire:click.prevent="vote" class="bg-blue text-white w-20 border border-blue font-bold text-xxs uppercase rounded-xl hover:bg-blue-hover transition duration-150 ease-in px-4 py-3 -mx-5">
+            <button wire:click.prevent="vote" class="w-20 px-4 py-3 -mx-5 font-bold text-white uppercase transition duration-150 ease-in border bg-blue border-blue text-xxs rounded-xl hover:bg-blue-hover">
               Voted
             </button>
             @else
-            <button wire:click.prevent="vote" class="w-20 bg-gray-200 border border-gray-200 font-bold text-xxs uppercase rounded-xl hover:border-gray-400 transition duration-150 ease-in px-4 py-3 -mx-5">
+            <button wire:click.prevent="vote" class="w-20 px-4 py-3 -mx-5 font-bold uppercase transition duration-150 ease-in bg-gray-200 border border-gray-200 text-xxs rounded-xl hover:border-gray-400">
               Vote
             </button>
             @endif
@@ -74,8 +74,8 @@
     </div>
   </div> <!-- end idea container -->
 
-  <div class="buttons-container flex items-center justify-between mt-6">
-    <div class="flex flex-col md:flex-row items-center space-x-4 md:ml-6">
+  <div class="flex items-center justify-between mt-6 buttons-container">
+    <div class="flex flex-col items-center space-x-4 md:flex-row md:ml-6">
       <livewire:add-comment :idea="$idea" />
 
       @admin
@@ -83,17 +83,17 @@
       @endadmin
     </div>
 
-    <div class="hidden md:flex items-center space-x-3">
-      <div class="bg-white font-semibold text-center rounded-xl px-3 py-2">
+    <div class="items-center hidden space-x-3 md:flex">
+      <div class="px-3 py-2 font-semibold text-center bg-white rounded-xl">
         <div class="text-xl leading-snug @if($hasVoted) text-blue @endif">{{ $votesCount }}</div>
-        <div class="text-gray-400 text-xs leading-none">Votes</div>
+        <div class="text-xs leading-none text-gray-400">Votes</div>
       </div>
       @if($hasVoted)
-      <button wire:click.prevent="vote" type="button" class="w-32 h-11 text-xs bg-blue text-white font-bold rounded-xl uppercase border border-blue hover:bg-blue-hover transition duration-150 ease-in px-6 py-3">
+      <button wire:click.prevent="vote" type="button" class="w-32 px-6 py-3 text-xs font-bold text-white uppercase transition duration-150 ease-in border h-11 bg-blue rounded-xl border-blue hover:bg-blue-hover">
         <span>Voted</span>
       </button>
       @else
-      <button wire:click.prevent="vote" type="button" class="w-32 h-11 text-xs bg-gray-200 font-bold rounded-xl uppercase border border-gray-200 hover:border-gray-400 transition duration-150 ease-in px-6 py-3">
+      <button wire:click.prevent="vote" type="button" class="w-32 px-6 py-3 text-xs font-bold uppercase transition duration-150 ease-in bg-gray-200 border border-gray-200 h-11 rounded-xl hover:border-gray-400">
         <span>Vote</span>
       </button>
       @endif
