@@ -22,6 +22,7 @@
     Livewire.on('statusWasUpdatedEvent', m => showNotification(m));
     Livewire.on('commentWasAdded', m => showNotification(m));
     Livewire.on('commentWasUpdated', m => showNotification(m));
+    Livewire.on('commentWasDeleted', m => showNotification(m));
     @endif
   "
   x-cloak
