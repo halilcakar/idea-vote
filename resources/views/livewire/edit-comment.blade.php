@@ -44,7 +44,7 @@
 
         <form wire:submit.prevent="updateComment" action="#" method="POST" class="px-4 py-6 space-y-4">
           <div>
-            <textarea x-ref="editComment" required wire:model.defer="body" cols="30" rows="4" placeholder="Update your comment!" class="w-full px-4 py-2 text-sm placeholder-gray-900 bg-gray-100 border-none resize-y rounded-xl"></textarea>
+            <textarea x-ref="editComment" required wire:model.defer="body" cols="30" rows="4" placeholder="Type your comment here.." class="w-full px-4 py-2 text-sm placeholder-gray-900 bg-gray-100 border-none resize-y rounded-xl"></textarea>
             @error('body')
             <p class="mt-1 text-xs text-red">{{ $message }}</p>
             @enderror

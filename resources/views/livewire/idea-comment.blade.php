@@ -7,6 +7,9 @@
     </div>
     <div class="w-full md:mx-4">
       <div class="text-gray-600">
+        @admin($comment->spam_reports > 0)
+          <div class="mb-2 text-red">Spam Reports: {{ $comment->spam_reports }}</div>
+        @endadmin
         {{ $comment->body }}
       </div>
 
@@ -45,20 +48,46 @@
               </li>
               @endcan
               @can('delete', $comment)
-                <li>
-                  <a
-                    href="#"
-                    @click.prevent="
-                      isOpen=false;
-                      Livewire.emit('setDeleteComment', {{ $comment->id }})
-                    "
-                    class="block px-5 py-3 transition duration-150 ease-in hover:bg-gray-100"
-                  >
-                    Delete Comment
-                  </a>
-                </li>
+              <li>
+                <a
+                  href="#"
+                  @click.prevent="
+                    isOpen=false;
+                    Livewire.emit('setDeleteComment', {{ $comment->id }})
+                  "
+                  class="block px-5 py-3 transition duration-150 ease-in hover:bg-gray-100"
+                >
+                  Delete Comment
+                </a>
+              </li>
               @endcan
-              <li><a href="#" class="block px-5 py-3 transition duration-150 ease-in hover:bg-gray-100">Mark as Spam</a></li>
+              <li>
+                <a
+                  href="#"
+                  @click.prevent="
+                      isOpen = false
+                      Livewire.emit('setMarkAsSpamComment', {{ $comment->id }})
+                  "
+                  class="block px-5 py-3 transition duration-150 ease-in hover:bg-gray-100"
+                >
+                  Mark as Spam
+                </a>
+              </li>
+
+              @admin($comment->spam_reports > 0)
+              <li>
+                <a
+                  href="#"
+                  @click.prevent="
+                      isOpen = false
+                      Livewire.emit('setMarkAsNotSpamComment', {{ $comment->id }})
+                  "
+                  class="block px-5 py-3 transition duration-150 ease-in hover:bg-gray-100"
+                >
+                  Not Spam
+                </a>
+              </li>
+              @endadmin
             </ul>
           </div>
         @endauth

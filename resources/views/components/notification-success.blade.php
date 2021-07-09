@@ -23,6 +23,8 @@
     Livewire.on('commentWasAdded', m => showNotification(m));
     Livewire.on('commentWasUpdated', m => showNotification(m));
     Livewire.on('commentWasDeleted', m => showNotification(m));
+    Livewire.on('commentWasMarkedAsSpam', m => showNotification(m));
+    Livewire.on('commentWasMarkedAsNotSpam', m => showNotification(m));
     @endif
   "
   x-cloak
